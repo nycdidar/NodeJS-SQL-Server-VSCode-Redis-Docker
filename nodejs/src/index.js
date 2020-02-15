@@ -6,29 +6,22 @@ import storage from "node-persist";
 import cors from "cors";
 import cron from "./modules/weather-cron";
 import * as mCache from "./core/memory-cache";
-
-/*  */
+import * as sql from "mssql";
 import * as redis from "redis";
+
 const client = redis.createClient(6379, 'redis_cache');
 client.on('connect', function() {
   console.log('Redis client connected');
 });
 
 
-
 // SQL SERVER CONNECTION
-import * as sql from "mssql";
-// config for your database
 const SQLServerConfig = {
   user: 'sa',
   password: 'SuperP4ssw0rd!',
   server: 'mssql',  // localhost, use container name if using docker.
   database: 'Northwind' 
 };
-
-
-
-
 
 
 const app = express();
@@ -48,7 +41,7 @@ sql.connect(SQLServerConfig, (err) => {
   // create Request object
   var request = new sql.Request();
   // query to the database and get the records
-  request.query('select * from Categories', function (err, recordset) {
+  request.query('SELECT LastName,FirstName FROM Employees', function (err, recordset) {
       if (err) console.log(err)
       // send records as a response
       console.log(recordset);

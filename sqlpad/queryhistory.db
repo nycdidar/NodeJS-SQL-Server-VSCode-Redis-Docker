@@ -1,3 +1,5 @@
+{"userId":"u5lvkzWt9RyNEpwu","userEmail":"admin@admin.com","connectionId":"vgfFM4gOhBNTByb7","connectionName":"SQLServer","startTime":{"$$date":1581800877574},"stopTime":{"$$date":1581800877641},"queryRunTime":67,"queryId":"","queryName":"","queryText":"SELECT * FROM Employees","incomplete":false,"rowCount":9,"createdDate":{"$$date":1581800534712},"_id":"K1WON4T4E1Bv1xY7"}
+{"userId":"u5lvkzWt9RyNEpwu","userEmail":"admin@admin.com","connectionId":"vgfFM4gOhBNTByb7","connectionName":"SQLServer","startTime":{"$$date":1581800891406},"stopTime":{"$$date":1581800891423},"queryRunTime":17,"queryId":"","queryName":"","queryText":"SELECT LastName,FirstName FROM Employees","incomplete":false,"rowCount":9,"createdDate":{"$$date":1581800534712},"_id":"yi4EfJuGdr31RMay"}
 {"$$indexCreated":{"fieldName":"connectionName","unique":false,"sparse":false}}
 {"$$indexCreated":{"fieldName":"userEmail","unique":false,"sparse":false}}
 {"$$indexCreated":{"fieldName":"createdDate","unique":false,"sparse":false}}

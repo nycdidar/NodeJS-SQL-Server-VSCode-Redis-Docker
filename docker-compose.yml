@@ -81,6 +81,7 @@ services:
             - vscode
     command: >
       /bin/bash -c "
+        sleep 10s
         npm run dev
       "
     ports:
