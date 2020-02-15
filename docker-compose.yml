@@ -109,9 +109,3 @@ services:
 networks:
   vscode:
     driver: bridge
-
-## SQL Commands
-#/opt/mssql-tools/bin/sqlcmd -S localhost -d Names -U SA -P SecuredPassword123! -I -Q "ALTER TABLE Names ADD ID UniqueIdentifier DEFAULT newid() NOT NULL;"
-#docker exec -it MyName /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "SecuredPassword123!" -Q "ALTER LOGIN SA WITH PASSWORD='''MyBetterPassword'"
-#/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "SecuredPassword123!" -Q "show databases"
-#/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P SecuredPassword123! -Q "SELECT name FROM master.dbo.sysdatabases"
