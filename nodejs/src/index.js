@@ -26,18 +26,6 @@ const SQLServerConfig = {
   database: 'Northwind' 
 };
 
-// connect to your database
-sql.connect(SQLServerConfig, (err) => {
-  if (err) console.log(err);
-  // create Request object
-  var request = new sql.Request();
-  // query to the database and get the records
-  request.query('select * from Categories', function (err, recordset) {
-      if (err) console.log(err)
-      // send records as a response
-      console.log(recordset);
-  });
-});
 
 
 
@@ -52,7 +40,25 @@ app.use(cors({
   }));
 
 // Default Route.
-app.get('/', (req, res) => res.send('Hello World !!'));
+app.get('/', (req, res) => {
+  
+  // connect to your database
+sql.connect(SQLServerConfig, (err) => {
+  if (err) console.log(err);
+  // create Request object
+  var request = new sql.Request();
+  // query to the database and get the records
+  request.query('select * from Categories', function (err, recordset) {
+      if (err) console.log(err)
+      // send records as a response
+      console.log(recordset);
+      res.send(recordset);
+  });
+});
+
+  
+
+});
 
 // Catch unmatched routes
 app.all('*', (req, res) => {
