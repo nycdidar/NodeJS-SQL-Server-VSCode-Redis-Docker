@@ -1,0 +1,117 @@
+# docker-compose.yml
+
+## -------------------------------------------------------------------------
+## DB ADMIN: 4170
+## VSCODE: 8080
+## NODEJS PORT: 3000
+## REDIS PORT: 6379 // Not accessible from outside.
+## SQL SERVER PORT: 1433
+## -------------------------------------------------------------------------
+
+version: '3.4'
+services:
+
+# -- REDIS Cache --- 
+  redis_cache:
+    image: redis
+    container_name: redis_cache
+    restart: always
+    ports:
+      - '6379:6379/tcp'
+    networks:
+      vscode:
+          aliases:
+              - vscode
+
+# -- SQL SERVER --- 
+  mssql:
+    image: microsoft/mssql-server-linux:latest
+    container_name: mssql
+    ports:
+      - 1433:1433
+    volumes:
+      - /var/opt/mssql
+      # we copy our scripts onto the container
+      - ./sql:/usr/src/app
+    # bash will be executed from that path, our scripts folder
+    working_dir: /usr/src/app
+    # run the entrypoint.sh that will import the data AND sqlserver
+    command: sh -c ' chmod +x ./start.sh; ./start.sh & /opt/mssql/bin/sqlservr;'
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: SuperP4ssw0rd!
+    networks:
+      vscode:
+        aliases:
+            - vscode
+
+# -- SQL SERVER CLIENT--- 
+  sqlpad:
+    image: 'sqlpad/sqlpad:latest'
+    hostname: 'sqlpad'
+    container_name: sqlpad
+    ports:
+      - '4170:3000'
+    environment:
+      - SQLPAD_DEBUG=true
+      - SQLPAD_ADMIN=admin@admin.com
+      - SQLPAD_ADMIN_PASSWORD=12345
+      #- DISABLE_USERPASS_AUTH=true
+      #- SQLPAD_QUERY_RESULT_MAX_ROWS=50000
+      #- SQLPAD_ALLOW_CONNECTION_ACCESS_TO_EVERYONE=true
+    volumes:
+      - ./sqlpad:/var/lib/sqlpad
+    networks:
+      vscode:
+        aliases:
+            - vscode
+
+# -- NODE JS---
+  nodejs:
+    container_name: nodejs
+    build:
+      context: ./nodejs
+      dockerfile: Dockerfile
+    links:
+      - redis_cache
+      - mssql
+    networks:
+      vscode:
+        aliases:
+            - vscode
+    command: >
+      /bin/bash -c "
+        npm run dev
+      "
+    ports:
+      - '3000:3000/tcp'
+    environment:
+      - NODE_ENV=development
+      - ENV_NAME=dev
+      - PORT=3000
+    volumes:
+      - ./nodejs/src:/app/src
+
+# -- VSCODE IDE---
+  vscode:
+    container_name: vscode
+    image: didar911/vscode
+    networks:
+      vscode:
+          aliases:
+              - vscode
+    ports:
+      - '8080:8080/tcp'
+    environment:
+      - PASSWORD=skybird
+    volumes:
+      - ./nodejs/src/:/home/coder/project
+networks:
+  vscode:
+    driver: bridge
+
+## SQL Commands
+#/opt/mssql-tools/bin/sqlcmd -S localhost -d Names -U SA -P SecuredPassword123! -I -Q "ALTER TABLE Names ADD ID UniqueIdentifier DEFAULT newid() NOT NULL;"
+#docker exec -it MyName /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "SecuredPassword123!" -Q "ALTER LOGIN SA WITH PASSWORD='''MyBetterPassword'"
+#/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "SecuredPassword123!" -Q "show databases"
+#/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P SecuredPassword123! -Q "SELECT name FROM master.dbo.sysdatabases"

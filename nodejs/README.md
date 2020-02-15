@@ -12,14 +12,10 @@ Navigate to project -> nodejs -> src -> index.js file
 
 Make some change.
 
-Preview: http://localhost:3000/
-
-SQL Server Admin: http://localhost:4170
-Email: admin@admin.com
-Pass: 12345
+Preview: http://localhost:4100/
 
 
-VSCODE ONLINE CREDIT GOES TO : 
+FULL CREDIT GOES TO : 
 https://coder.com/
 
 https://github.com/cdr

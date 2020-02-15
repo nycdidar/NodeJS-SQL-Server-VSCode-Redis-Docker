@@ -1,0 +1,60 @@
+{
+  "name": "didarul-node-js-starter-kit",
+  "version": "0.3.0",
+  "description": "Starter Kit ES6 NODE JS",
+  "main": "dist",
+  "scripts": {
+    "dev": "nodemon -w src --exec \"babel-node src --presets es2015\"",
+    "build": "babel src -s -D -d dist --presets es2015",
+    "start": "babel src -s -D -d dist --presets es2015 && babel-node dist --presets es2015"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 7,
+      "sourceType": "module"
+    },
+    "env": {
+      "node": true
+    },
+    "rules": {
+      "no-console": 0,
+      "no-unused-vars": 1
+    }
+  },
+  "repository": "General Labs",
+  "author": "Didarul",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "define-properties": "^1.1.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.13.3",
+    "is-symbol": "^1.0.3",
+    "jest": "^24.3.1",
+    "jsonwebtoken": "^8.3.0",
+    "knex": "^0.15.2",
+    "mongodb": "^3.1.8",
+    "mssql": "^6.0.1",
+    "node-cron": "^2.0.3",
+    "node-persist": "^3.0.5",
+    "prettier": "1.14.3",
+    "pretty-quick": "^1.8.0",
+    "pug": "^2.0.3",
+    "redis": "^2.8.0",
+    "resource-router-middleware": "^0.6.0",
+    "socket.io": "^2.1.1",
+    "uuid": "^3.3.2",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "eslint": "^4.18.2",
+    "nodemon": "^1.9.2"
+  }
+}
