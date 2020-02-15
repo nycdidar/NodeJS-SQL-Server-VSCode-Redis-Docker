@@ -1,5 +1,11 @@
-## Code Anywhere.....
+## Code Anywhere...
 ### NodeJS, SQL Server, Redis, VSCode
+
+SQLPad - SQL Server Admin Client
+![VSCode with NodeJS](sqlpad-demo.jpg)
+
+VSCode - Online IDE
+![VSCode with NodeJS](vs-code-demo.png)
 
 #### Install
 `docker-compose up -d`
