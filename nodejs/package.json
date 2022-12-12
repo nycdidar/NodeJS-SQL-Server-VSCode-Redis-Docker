@@ -31,7 +31,7 @@
     "cors": "^2.8.5",
     "define-properties": "^1.1.3",
     "dotenv": "^6.2.0",
-    "express": "^4.13.3",
+    "express": "^4.17.3",
     "is-symbol": "^1.0.3",
     "jest": "^24.3.1",
     "jsonwebtoken": "^8.3.0",
